@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ApplicantMessagesModel>
+
+@{
+    ViewData["Title"] = "Messages";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            @* <th>ID</th> *@
+            @* <th>Applicant ID</th> *@
+            <th>Messages</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var applicantMessage in Model)
+        {
+            <tr>
+                @* <td>@applicantMessage.Id</td> *@
+                @* <td>@applicantMessage.ApplicantId</td> *@
+                <td>@applicantMessage.message</td>
+            </tr>
+        }
+    </tbody>
+</table>

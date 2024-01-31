@@ -1,4 +1,5 @@
 ﻿
+using BankTrackingSystem.Data;
 using StackExchange.Redis;
 
 namespace BankTrackingSystem

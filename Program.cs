@@ -1,10 +1,15 @@
 using BankTrackingSystem;
+using BankTrackingSystem.Data;
+using BankTrackingSystem.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddHostedService<RedisMessageSubscriber>();
+builder.Services.AddScoped<IApplicantMessagesRespository, ApplicantMessagesRespository>();
+
 
 var app = builder.Build();
 
