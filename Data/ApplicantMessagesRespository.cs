@@ -17,9 +17,9 @@ namespace BankTrackingSystem.Data
             return message;
         }
 
-        public async Task<List<ApplicantMessagesModel>> GetAllAgainstApplicantId(int applicantId)
+        public async Task<List<ApplicantMessagesModel>> GetAllAgainstApplicantId(long applicantId)
         {
-            return await _databaseContext.Messages.Where(message => message.ApplicantId.ToString() == applicantId.ToString()).ToListAsync();
+            return await _databaseContext.Messages.Where(message => message.ApplicantId.Equals(applicantId)).ToListAsync();
         }
 
         public async Task<List<ApplicantMessagesModel>> GetAllMessagesAsync()

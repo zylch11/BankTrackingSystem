@@ -39,13 +39,6 @@ namespace BankTrackingSystem
                     var applicantMessage = JsonConvert.DeserializeObject<ApplicantMessagesModel>(message);
                     await applicantRepository.AddMessage(applicantMessage);
                     _logger.LogInformation("Received message: {Channel} {Message}", channel, message);
-
-                    // Remove
-                    //var testMessage = new ApplicantMessagesModel();
-                    //testMessage.Id = Guid.NewGuid();
-                    //testMessage.ApplicantId = GenerateRandomLong();
-                    //testMessage.Message = Guid.NewGuid().ToString();
-                    //await applicantRepository.AddMessage(testMessage);
                 });
 
                 // Wait until cancellation is requested

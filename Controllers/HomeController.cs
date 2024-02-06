@@ -21,7 +21,7 @@ public class HomeController : Controller
         return View();
     }
 
-    public async Task<IActionResult> Details(int applicantId)
+    public async Task<IActionResult> Details(long applicantId)
     {
         var messages = await _applicantMessagesRespository.GetAllAgainstApplicantId(applicantId);
         return View(messages);
