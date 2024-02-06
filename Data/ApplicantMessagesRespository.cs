@@ -12,7 +12,7 @@ namespace BankTrackingSystem.Data
         }
         public async Task<ApplicantMessagesModel> AddMessage(ApplicantMessagesModel message)
         {
-            _databaseContext.Add(message);
+            _databaseContext.Messages.Add(message);
             await _databaseContext.SaveChangesAsync();
             return message;
         }
