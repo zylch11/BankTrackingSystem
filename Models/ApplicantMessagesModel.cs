@@ -2,8 +2,8 @@
 {
     public class ApplicantMessagesModel
     {
-        public int Id { get; set; }
-        public int ApplicantId { get; set; }
-        public string? message { get; set; }
+        public Guid Id { get; set; }
+        public long ApplicantId { get; set; }
+        public string? Message { get; set; }
     }
 }

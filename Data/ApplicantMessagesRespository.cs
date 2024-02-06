@@ -19,7 +19,7 @@ namespace BankTrackingSystem.Data
 
         public async Task<List<ApplicantMessagesModel>> GetAllAgainstApplicantId(int applicantId)
         {
-            return await _databaseContext.Messages.Where(message => message.ApplicantId == applicantId).ToListAsync();
+            return await _databaseContext.Messages.Where(message => message.ApplicantId.ToString() == applicantId.ToString()).ToListAsync();
         }
 
         public async Task<List<ApplicantMessagesModel>> GetAllMessagesAsync()
@@ -29,7 +29,7 @@ namespace BankTrackingSystem.Data
 
         public async Task<ApplicantMessagesModel?> GetMessageAgainstIdAsync(int messageId)
         {
-            return await _databaseContext.Messages.FirstOrDefaultAsync(message => message.Id == messageId);
+            return await _databaseContext.Messages.FirstOrDefaultAsync(message => message.Id.ToString() == messageId.ToString());
         }
     }
 }
