@@ -3,7 +3,6 @@ using BankTrackingSystem.Data;
 using BankTrackingSystem.Models;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using System.Security.Cryptography;
 
 namespace BankTrackingSystem
 {
@@ -12,7 +11,6 @@ namespace BankTrackingSystem
         private readonly ILogger<RedisMessageSubscriber> _logger;
         private readonly IConfiguration _configuration;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ConnectionMultiplexer _connectionMultiplexer;
         private static readonly RedisChannel _channel = RedisChannel.Pattern("bank-account-status-changed-channel");
 
         public RedisMessageSubscriber(IConfiguration configuration, ILogger<RedisMessageSubscriber> logger, IServiceProvider serviceProvider)
@@ -20,12 +18,11 @@ namespace BankTrackingSystem
             _logger = logger;
             _configuration = configuration;
             _serviceProvider = serviceProvider;
-            _connectionMultiplexer = ConnectionMultiplexer.Connect("localhost:6379,password=redispw,user=default");
-            //_connectionMultiplexer = ConnectionMultiplexer.Connect(_configuration.GetConnectionString("SQLConnectionString"));
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var subscriber = _connectionMultiplexer.GetSubscriber();
+            IConnectionMultiplexer connectionMultiplexer = EstablishRedisConnection();
+            var subscriber = connectionMultiplexer.GetSubscriber();
 
             var scope = _serviceProvider.CreateAsyncScope();
 
@@ -51,13 +48,15 @@ namespace BankTrackingSystem
             }
         }
 
-
-        static long GenerateRandomLong()
+        private IConnectionMultiplexer EstablishRedisConnection()
         {
-            byte[] bytes = new byte[8];
-            new Random().NextBytes(bytes);
-            long randomLong = BitConverter.ToInt64(bytes, 0);
-            return randomLong;
+            // Reads the `ConnectionStrings` section from appsettings.json and stores it in an instance of `ConnectionStringsOptions`
+            // Had to do this because otherwise a warning is emitted always saying `RedisConnectionString` may be null
+            // Read more at https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-8.0
+            ConnectionStringsOptions connectionStringsOptions = new ConnectionStringsOptions();
+            _configuration.GetSection(ConnectionStringsOptions.ConnectionStrings).Bind(connectionStringsOptions);
+
+            return ConnectionMultiplexer.Connect(connectionStringsOptions.RedisConnectionString);
         }
     }
 }
