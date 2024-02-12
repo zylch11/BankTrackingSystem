@@ -20,7 +20,11 @@
             <tr>
                 @* <td>@applicantMessage.Id</td> *@
                 @* <td>@applicantMessage.ApplicantId</td> *@
-                <td>@applicantMessage.Message</td>
+                <td>@applicantMessage.Message @if(applicantMessage.accountStatus.Equals(AccountStatus.APPROVED))
+                    {
+                        <a href="http://localhost:5072/customer/register/@applicantMessage.ApplicantEmailAddress" >Click here to register</a>
+                    }
+                </td>
             </tr>
         }
     </tbody>
