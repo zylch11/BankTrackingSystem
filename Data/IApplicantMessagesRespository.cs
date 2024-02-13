@@ -8,5 +8,6 @@ namespace BankTrackingSystem.Data
         Task<List<ApplicantMessagesModel>> GetAllAgainstApplicantId(long applicantId);
         Task<ApplicantMessagesModel?> GetMessageAgainstIdAsync(int messageId);
         Task<ApplicantMessagesModel> AddMessage(ApplicantMessagesModel message);
+        Task<List<ApplicantMessagesModel>> GetAllAgainstEmailAddress(string emailAddress);
     }
 }

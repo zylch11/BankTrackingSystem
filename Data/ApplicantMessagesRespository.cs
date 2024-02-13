@@ -22,6 +22,11 @@ namespace BankTrackingSystem.Data
             return await _databaseContext.Messages.Where(message => message.ApplicantId.Equals(applicantId)).ToListAsync();
         }
 
+        public async Task<List<ApplicantMessagesModel>> GetAllAgainstEmailAddress(string emailAddress)
+        {
+            return await _databaseContext.Messages.Where(message => message.ApplicantEmailAddress.Equals(emailAddress)).ToListAsync();
+        }
+
         public async Task<List<ApplicantMessagesModel>> GetAllMessagesAsync()
         {
             return await _databaseContext.Messages.ToListAsync();
