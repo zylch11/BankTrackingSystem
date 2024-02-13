@@ -6,5 +6,6 @@
 
         public string SQLConnectionString { get; set; } = string.Empty;
         public string RedisConnectionString { get; set; } = string.Empty;
+        public string FrontEndConnectionString { get; set; } = string.Empty;
     }
 }
